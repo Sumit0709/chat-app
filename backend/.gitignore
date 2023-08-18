@@ -1,0 +1,6 @@
+
+# dependencies
+/node_modules
+/access.log
+/socket-error.log
+/ecosystem.config.js
