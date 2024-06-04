@@ -17,17 +17,19 @@ Major work has been done on project architecture, backend server and the hosting
 ## Database Study -
 
 Assumptions I have made - 
-
+```
 Number of active user = 1 Million
 Number of friends each user has = 20
 Number of messages sent by each user each day = 100 messages
 Each message length = 100 char
-
+```
 Since it is important to store chat between two user separated from other user’s chat, we will have to group them into a single document (In case of mongoDb)
 
 Assuming the below structure of a message object, each message consumes storage of around 238 bytes.
+```
 So each user consumes 238*100 = 23800 bytes each day
 Each Document in MongoDb has a limitation of 16 MB = 16777216 bytes
+```
 
 So number of days required to exhaust the storage space = 705 Days i.e. approx 2 Year
 
@@ -41,6 +43,7 @@ So cassandra can be a pretty good choice to store messages in this case.
 Below is the table structure of our tables.
 
 ### Private Chat Table Structure:
+```
 {
 chat_id: UUID
 sender: TEXT
@@ -55,8 +58,10 @@ seen_at: TIMESTAMP
 sequence: INT
 PRIMARY KEY: (chat_id, message_id, sequence)
 }
+```
 
 ### Pending Messages/Notification Table Structure:
+```
 {
 user_id: UUID
 chat_id: UUID
@@ -73,6 +78,7 @@ seen_at: TIMESTAMP
 sequence: INT
 PRIMARY KEY: (user_id, chat_id, service_type, message_id, sequence)
 }
+```
 
 ## HOSTING -
 
